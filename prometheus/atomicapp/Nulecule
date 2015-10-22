@@ -1,0 +1,24 @@
+--- 
+specversion: "0.0.2"
+
+id: prometheus
+metadata: 
+  name: "prometheus"
+  appversion: v1.0.0
+  description: "Prometheus monitoring"
+
+graph: 
+  - name: prometheus
+    params: 
+      - name: image
+        description: image to be used for prometheus
+        default: prom/prometheus
+      - name: port
+        description: host port to be mapped to contianer port 9090
+        default: 9090
+    artifacts:
+      docker:
+        - file://artifacts/docker/prometheus-run
+      kubernetes:
+        - file://artifacts/kubernetes/prometheus-rc.yaml
+        - file://artifacts/kubernetes/prometheus-service.yaml

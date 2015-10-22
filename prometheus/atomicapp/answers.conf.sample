@@ -1,0 +1,6 @@
+[prometheus]
+image = prom/prometheus
+port = 9090
+[general]
+namespace = default
+provider = kubernetes

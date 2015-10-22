@@ -1,0 +1,1 @@
+docker run -d -p $port:9090  $image
