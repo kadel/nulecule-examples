@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: nonroot-nginx-template
+parameters:
+  - name: "lbl1"
+    description: "test label"
+    required: True
+  - name: "lbl2"
+    description: "tesat2"
+    required: False
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: nonroot-nginx
+      lbl1: "${lbl1}"
+      lbl2: "${lbl2}"
+    name: nonroot-nginx
+  spec:
+    replicas: 1
+    selector:
+      app: nonroot-nginx
+      deploymentconfig: nonroot-nginx
+    template:
+      metadata:
+        labels:
+          app: nonroot-nginx
+          deploymentconfig: nonroot-nginx
+      spec:
+        containers:
+        - image: tomaskral/nonroot-nginx
+          imagePullPolicy: IfNotPresent
+          name: nonroot-nginx
+          ports:
+          - containerPort: 8080
+            name: 8080-tcp
+            protocol: TCP
+    triggers:
+    - type: ConfigChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      app: nonroot-nginx
+    name: nonroot-nginx
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: nonroot-nginx
+      deploymentconfig: nonroot-nginx
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: nonroot-nginx
+    name: nonroot-nginx
+  spec:
+    port:
+      targetPort: "8080"
+    to:
+      kind: Service
+      name: nonroot-nginx

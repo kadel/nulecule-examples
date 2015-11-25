@@ -1,0 +1,21 @@
+---
+specversion: 0.0.2
+id: nonroot-nginx-atomicapp
+
+metadata:
+  name: Hello nonroot nginx
+  appversion: 0.0.1
+  description: nginx ruuning as non root
+graph:
+  - name: nonroot-nginx
+    params:
+      - name: image
+        description: The webserver image
+        default: tomaskral/nonroot-nginx
+    artifacts:
+      docker:
+        - file://artifacts/docker/nonroot-nginx-run
+      openshift:
+        - file://artifacts/openshift/dc.yaml
+        - file://artifacts/openshift/service.yaml
+        - file://artifacts/openshift/route.yaml
