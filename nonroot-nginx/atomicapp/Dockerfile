@@ -1,4 +1,4 @@
-FROM projectatomic/atomicapp:0.2.2
+FROM projectatomic/atomicapp:latest
 
 MAINTAINER Tomas Kral <tkral@redhat.com>
 
