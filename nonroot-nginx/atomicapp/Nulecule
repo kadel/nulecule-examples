@@ -16,6 +16,7 @@ graph:
       docker:
         - file://artifacts/docker/nonroot-nginx-run
       openshift:
-        - file://artifacts/openshift/dc.yaml
-        - file://artifacts/openshift/service.yaml
-        - file://artifacts/openshift/route.yaml
+          #- file://artifacts/openshift/template.yaml
+            - file://artifacts/openshift/service.yaml
+            - file://artifacts/openshift/route.yaml
+            - file://artifacts/openshift/dc.yaml

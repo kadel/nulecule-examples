@@ -2,21 +2,12 @@ apiVersion: v1
 kind: Template
 metadata:
   name: nonroot-nginx-template
-parameters:
-  - name: "lbl1"
-    description: "test label"
-    required: True
-  - name: "lbl2"
-    description: "tesat2"
-    required: False
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
       app: nonroot-nginx
-      lbl1: "${lbl1}"
-      lbl2: "${lbl2}"
     name: nonroot-nginx
   spec:
     replicas: 1
@@ -30,8 +21,7 @@ objects:
           deploymentconfig: nonroot-nginx
       spec:
         containers:
-        - image: tomaskral/nonroot-nginx
-          imagePullPolicy: IfNotPresent
+        - image: $image
           name: nonroot-nginx
           ports:
           - containerPort: 8080
@@ -42,7 +32,6 @@ objects:
 - apiVersion: v1
   kind: Service
   metadata:
-    creationTimestamp: null
     labels:
       app: nonroot-nginx
     name: nonroot-nginx
