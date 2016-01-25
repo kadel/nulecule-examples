@@ -56,7 +56,7 @@ objects:
     name: nginx
   spec:
     port:
-      targetPort: $hostport
+      targetPort: 8080
     to:
       kind: Service
       name: nginx
