@@ -1,0 +1,21 @@
+{
+    "id": "nginx",
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "network": "BRIDGE",
+            "image": "$image",
+            "portMappings": [
+            {
+                "containerPort": 8080,
+                "servicePort": $hostport,
+                "hostPort": 0,
+                "protocol": "tcp"
+            }
+            ]
+        }
+    },
+    "cpus": 0.5,
+    "mem": 64
+}
+
