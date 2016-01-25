@@ -14,7 +14,6 @@ graph:
         default: tomaskral/nonroot-nginx
       - name: hostport
         description: The host TCP port as external endpoint
-        default: 80
     artifacts:
       docker:
         - file://artifacts/docker/nginx-run
